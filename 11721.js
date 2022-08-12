@@ -1,6 +1,6 @@
 let fs = require("fs");
 // let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n')
-let input = fs.readFileSync("./input/11720.txt").toString();
+let input = fs.readFileSync("./input/11721.txt").toString();
 let LENGTH = input.length;
 let num = Math.ceil(LENGTH / 10);
 for (let i = 0; i < num; i++) {
