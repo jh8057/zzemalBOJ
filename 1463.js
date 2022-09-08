@@ -1,21 +1,17 @@
 let fs = require("fs");
 // let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n')
-let input = fs.readFileSync("./input/2741.txt").toString();
+let input = Number(fs.readFileSync("./input/2741.txt").toString());
+const dp = new Array(input + 1).fill(0);
 
-let cnt = 0;
+for (let i = 2; i < dp.length; i++) {
+  dp[i] = dp[i - 1] + 1;
 
-while (input !== 1) {
-  if (input % 3 === 0) {
-    input = input / 3;
-  } else if (input % 3 === 1) {
-    input = input - 1;
-  } else if (input % 2 === 0) {
-    input = input / 2;
-  } else {
-    input = input - 1;
+  if (i % 3 === 0) {
+    dp[i] = Math.min(dp[i], dp[i / 3] + 1);
   }
-  cnt++;
-  console.log(cnt, input);
+  if (i % 2 === 0) {
+    dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+  }
 }
 
-console.log(cnt);
+console.log(dp[input]);
