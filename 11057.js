@@ -15,3 +15,4 @@ const result = dp[input - 1].reduce((pre, cur) => pre + cur, 0);
 console.log(result % 10007);
 
 //https://animoto1.tistory.com/entry/%EB%B0%B1%EC%A4%80-11057-%EC%98%A4%EB%A5%B4%EB%A7%89-%EC%88%98-%ED%8C%8C%EC%9D%B4%EC%8D%AC-Python
+//https://leylaoriduck.tistory.com/532
