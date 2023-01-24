@@ -1,15 +1,57 @@
-// const input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n')
+//2차
 const input = require("fs")
-  .readFileSync("../input/2587.txt")
+  .readFileSync("../input/18870.txt")
   .toString()
   .trim()
-  .split("\n")
-  .map((el) => Number(el));
+  .split("\n");
 
-let sortedArr = input.sort((a, b) => a - b);
+let N = parseInt(input[0]);
+let arr = input[1].split(" ");
+let sortedArr = [...new Set(arr)].sort((a, b) => a - b);
 
-let avg = sortedArr.reduce((pre, cur) => pre + cur, 0);
-console.log(Math.floor(avg / sortedArr.length));
+let obj = {};
+sortedArr.forEach((el, index) => (obj[el] = index));
+let result = "";
+for (let i = 0; i < N; i++) {
+  result += obj[arr[i]] + " ";
+}
+console.log(result);
+// 1차
+// const input = require("fs")
+//   .readFileSync("../input/18870.txt")
+//   .toString()
+//   .trim()
+//   .split("\n");
 
-let mid = Math.floor(sortedArr.length / 2);
-console.log(sortedArr[mid]);
+// let N = parseInt(input[0]);
+// let arr = input[1].split(" ");
+// let sortedArr = [...new Set(arr)].sort((a, b) => a - b);
+
+// let result = "";
+// for (let i = 0; i < N; i++) {
+//   result += sortedArr.indexOf(arr[i]) + " ";
+// }
+// console.log(result.trimEnd());
+
+//other - search
+// const getLowerBound = (arr, target) => {
+//   let le = 0,
+//     ri = arr.length;
+//   while (le < ri) {
+//     const mid = Math.floor((le + ri) / 2);
+//     if (target <= arr[mid]) {
+//       ri = mid;
+//     } else {
+//       le = mid + 1;
+//     }
+//   }
+//   return ri;
+// };
+
+// const [n, x] = require("fs").readFileSync("/dev/stdin").toString().split("\n");
+// const N = Number(n);
+// const inputs = x.split(" ").map(Number);
+// const s = new Set(inputs);
+// const arr = Array.from(s).sort((a, b) => a - b);
+
+// console.log(inputs.map((x) => getLowerBound(arr, x)).join(" "));
