@@ -10,8 +10,10 @@ const arr = new Array(N).fill().map((_, i) => {
 
 for (let i = 1; i <= M; i++) {
   let [start, end] = input[i].split(" ");
-  let temp = arr[start - 1];
-  arr[start - 1] = arr[end - 1];
-  arr[end - 1] = temp;
+  //   let temp = arr[start - 1];
+  //   arr[start - 1] = arr[end - 1];
+  //   arr[end - 1] = temp;
+
+  [arr[start - 1], arr[end - 1]] = [arr[end - 1], arr[start - 1]];
 }
 console.log(arr.join(" "));
