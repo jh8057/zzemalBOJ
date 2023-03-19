@@ -11,7 +11,8 @@ const arr = new Array(N).fill().map((_, i) => {
 console.log(N, M, arr);
 for (let i = 1; i <= M; i++) {
   let [start, end] = input[i].split(" ");
+  let target = arr.slice(start - 1, end).reverse();
 
-  // [arr[start - 1], arr[end - 1]] = [arr[end - 1], arr[start - 1]];
+  arr.splice(start - 1, end - start + 1, ...target);
 }
 console.log(arr.join(" "));
