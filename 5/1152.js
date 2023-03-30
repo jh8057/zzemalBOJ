@@ -4,4 +4,5 @@ const input = require("fs")
   .trim()
   .split(" ");
 
-console.log(input.length);
+let answer = input.filter((v) => v).length;
+console.log(answer);
