@@ -1,6 +1,6 @@
 const input = require("fs")
-  .readFileSync("../input/27866.txt")
+  .readFileSync("../input/11654.txt")
   .toString()
-  .split("\n");
+  .trim();
 
-console.log(input[0][input[1] - 1]);
+console.log(input.charCodeAt());
