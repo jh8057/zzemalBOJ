@@ -3,6 +3,5 @@ const input = require("fs")
   .toString()
   .split("\n");
 
-
-let [N,M] = input[0]
+let [N, M] = input[0];
 console.log("input", input);
