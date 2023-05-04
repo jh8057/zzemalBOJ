@@ -1,5 +1,4 @@
-const input = require("fs")
-  .readFileSync("../input/2745.txt")
-  .toString()
-  .trim()
-  .split(" ");
+// https://develop247.tistory.com/195
+
+console.log("1");
+console.log("0");
