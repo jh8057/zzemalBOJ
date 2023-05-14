@@ -4,3 +4,7 @@ const input = require("fs")
   .split("\n");
 
 console.log("input", input);
+
+input.forEach((el) => {
+  let [name, num, grade] = el.split(" ");
+});
