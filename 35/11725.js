@@ -4,3 +4,7 @@ const input = require("fs")
   .split("\n");
 
 const N = input.shift();
+
+for (let i = 0; i < input.length; i++) {
+  console.log(input[i]);
+}
