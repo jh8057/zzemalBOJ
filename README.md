@@ -38,5 +38,3 @@
 let fs = require("fs");
 let input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 ```
-
-단계별 문제 풀이
