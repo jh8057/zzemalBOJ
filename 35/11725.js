@@ -8,16 +8,22 @@ const N = input.shift();
 let vertex = {};
 
 for (let i = 0; i < input.length; i++) {
-  let node = input[i].split(" ");
+  let node = input[i]
+    .split(" ")
+    .map((el) => +el)
+    .sort((a, b) => a - b);
   console.log("node", node);
-  for (let j = 1; j < N; j++) {
-    if (node[0] == j) {
-      vertex[node[0]] = node[1];
-    }
 
-    if (node[1] == j) {
-      vertex[node[1]] = node[0];
-    }
+  if (vertex[node[0]]) {
+    vertex[node[0]].push(node[1]);
+  } else {
+    vertex[node[0]] = [node[1]];
+  }
+
+  if (vertex[node[1]]) {
+    vertex[node[1]].push(node[0]);
+  } else {
+    vertex[node[1]] = [node[0]];
   }
 }
 
