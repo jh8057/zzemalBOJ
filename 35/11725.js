@@ -5,7 +5,7 @@ const input = require("fs")
 
 const N = input.shift();
 
-let vertex = {};
+let vertex = new Map();
 
 for (let i = 0; i < input.length; i++) {
   let node = input[i]
@@ -14,17 +14,21 @@ for (let i = 0; i < input.length; i++) {
     .sort((a, b) => a - b);
   console.log("node", node);
 
-  if (vertex[node[0]]) {
-    vertex[node[0]].push(node[1]);
+  if (vertex.get(node[0])) {
+    vertex.get(node[0]).push(node[1]);
   } else {
-    vertex[node[0]] = [node[1]];
+    vertex.set(node[0], [node[1]]);
   }
 
-  if (vertex[node[1]]) {
-    vertex[node[1]].push(node[0]);
+  if (vertex.get(node[1])) {
+    vertex.get(node[1]).push(node[0]);
   } else {
-    vertex[node[1]] = [node[0]];
+    vertex.set(node[1], [node[0]]);
   }
 }
 
 console.log("ver", vertex);
+
+vertex.forEach((el) => {
+  console.log("el", el);
+});
