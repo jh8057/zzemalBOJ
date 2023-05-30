@@ -32,3 +32,5 @@ console.log("ver", vertex);
 vertex.forEach((el) => {
   console.log("el", el);
 });
+
+let parent = new Array(N);
