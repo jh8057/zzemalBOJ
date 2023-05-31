@@ -3,16 +3,15 @@ const input = require("fs")
   .toString()
   .split("\n");
 
-const N = input.shift();
-
+const N = +input.shift();
 let vertex = new Map();
+let parent = new Array(N + 1).fill(0);
 
 for (let i = 0; i < input.length; i++) {
   let node = input[i]
     .split(" ")
     .map((el) => +el)
     .sort((a, b) => a - b);
-  console.log("node", node);
 
   if (vertex.get(node[0])) {
     vertex.get(node[0]).push(node[1]);
@@ -27,10 +26,17 @@ for (let i = 0; i < input.length; i++) {
   }
 }
 
-console.log("ver", vertex);
+let queue = [1];
 
-vertex.forEach((el) => {
-  console.log("el", el);
-});
+while (queue.length) {
+  let target = queue.pop();
+  let next = vertex.get(target);
+  next.forEach((el) => {
+    if (!parent[el] && el !== 1) {
+      parent[el] = target;
+      queue.push(el);
+    }
+  });
+}
 
-let parent = new Array(N);
+console.log(parent.slice(2).join("\n"));
