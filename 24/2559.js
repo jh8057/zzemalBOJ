@@ -3,13 +3,21 @@ const input = require("fs")
   .toString()
   .split("\n");
 
-console.log(input);
+const [N, K] = input
+  .shift()
+  .split(" ")
+  .map((el) => +el);
 
-const [K, N] = input.shift().split(" ");
+const arr = input[0].split(" ").map((el) => +el);
+const prefix = [0];
 
-console.log(K, N);
+for (let i = 1; i <= N; i++) {
+  prefix[i] = prefix[i - 1] + arr[i - 1];
+}
+console.log(prefix);
 
-const arr = input.split(" ").map((el) => +el);
-const sum = arr.map(el, (i) => {
-  return el + (arr[i - 1] || 0);
-});
+let max = Number.MIN_SAFE_INTEGER;
+for (let i = K; i <= N; i++) {
+  max = Math.max(max, prefix[i] - prefix[i - K]);
+}
+console.log(max);
