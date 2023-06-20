@@ -4,11 +4,12 @@ const input = require("fs")
   .trim()
   .split("\n");
 
-console.log("input0", input);
-
 let answer = "";
-for (let i = 0; i < input.length; i++) {
+let max = Math.max(...input.map((el) => el.length));
+for (let i = 0; i < max; i++) {
   for (let j = 0; j < input.length; j++) {
-    input[j][i];
+    answer += input[j][i] || "";
   }
 }
+
+console.log(answer);
