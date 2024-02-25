@@ -21,6 +21,7 @@ const sumTreeHeight = (height) => {
  * @returns
  */
 const binary = (left, right) => {
+  //무한 루프 안 빠지도록 항상 설정
   if (left > right) {
     return right;
   }
