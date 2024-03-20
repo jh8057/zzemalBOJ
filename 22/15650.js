@@ -4,23 +4,26 @@ const inputs = require("fs")
   .trim()
   .split(" ");
 
-console.log("input", inputs);
+const N = Number(inputs[0]);
+const M = Number(inputs[1]);
 
-const [N, M] = inputs;
-
-console.log("N", N, M);
-
-const printLoop = (answer = [], cnt) => {
-  if (cnt === 0) return answer;
-  for (let i = 0; i < N; i++) {
-    if (cnt === 1) {
-      if (answer.indexOf(i) < 0) {
-        answer.push(i);
-      }
-    }
+let final = [];
+const printLoop = (arr = [], answer = [], cnt) => {
+  if (cnt == 0) {
+    let result = answer.sort((a, b) => a - b).join(" ");
+    if (!final.includes(result)) final.push(result);
+    return;
   }
-  return printLoop(answer, cnt - 1);
+
+  let next = [];
+  let nextAnswer = [];
+  for (let i = 0; i < arr.length; i++) {
+    next = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    nextAnswer = [...answer, arr[i]];
+    printLoop(next, nextAnswer, cnt - 1);
+  }
 };
 
-const answer = printLoop([], M);
-console.log(answer);
+let initArray = Array.from({ length: N }, (_, i) => i + 1);
+printLoop(initArray, [], M);
+console.log(final.join("\n"));
