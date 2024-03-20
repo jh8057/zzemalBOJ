@@ -27,3 +27,19 @@ const printLoop = (arr = [], answer = [], cnt) => {
 let initArray = Array.from({ length: N }, (_, i) => i + 1);
 printLoop(initArray, [], M);
 console.log(final.join("\n"));
+
+// const result = [];
+// const tmp = [];
+// const dfs = (prev = 0, count = 0) => {
+//   if (count === M){
+//       result.push(tmp.join(' '));
+//       return;
+//   }
+//   for (let i = prev + 1; i <= N; i++){
+//     tmp.push(i);
+//     dfs(i, count + 1);
+//     tmp.pop();
+//   }
+// }
+// dfs();
+// console.log(result.join('\n'));
