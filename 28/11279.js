@@ -11,19 +11,15 @@ class MaxHeap {
   constructor() {
     this.heap = [];
   }
-
   searchParent(index) {
     return Math.floor((index - 1) / 2);
   }
-
   leftChild(index) {
     return 2 * index + 1;
   }
-
   rightChild(index) {
     return 2 * index + 2;
   }
-
   heapifyUp() {
     let index = this.heap.length - 1;
     const now = this.heap[index];
@@ -40,7 +36,6 @@ class MaxHeap {
       index = parentIndex;
     }
   }
-
   heapifyDown() {
     let index = 0;
     const LEN = this.heap.length;
@@ -50,40 +45,33 @@ class MaxHeap {
       const rightIndex = this.rightChild(index);
       const left = this.heap[leftIndex];
       const right = this.heap[rightIndex];
-
       let swapIndex = null;
 
       // 왼쪽 자식이 힙 범위에 있고 && 현재값 보다 크면 swap
       if (leftIndex < LEN && left > now) {
         swapIndex = leftIndex;
       }
-
       // 오른쪽 자식이 힙 범위 && 현재값보다 크고 && 왼쪽 자식보다 크면 swap
       if (rightIndex < LEN && right > now && right > left) {
         swapIndex = rightIndex;
       }
-
       // 아무것도 적용되지 않으면 정상
       if (swapIndex === null) {
         break;
       }
-
       // swapIndex가 설정된 경우 현재 노드와 swapIndex의 노드를 교환
       [this.heap[index], this.heap[swapIndex]] = [
         this.heap[swapIndex],
         this.heap[index],
       ];
-
       // 갱신
       index = swapIndex;
     }
   }
-
   insertHeap(value) {
     this.heap.push(value);
     this.heapifyUp();
   }
-
   deleteHeap() {
     if (this.heap.length < 1) {
       return 0;
