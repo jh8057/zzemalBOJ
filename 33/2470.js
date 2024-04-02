@@ -4,13 +4,29 @@ const inputs = require("fs")
   .trim()
   .split("\n");
 
-console.log("input", inputs);
-
 const N = +inputs[0];
-const arr = inputs[1].split(" ");
+const arr = inputs[1]
+  .split(" ")
+  .map(Number)
+  .sort((a, b) => a - b);
 
-let startPoint = 0;
-let endPoint = 0;
-for (let i = 0; i < N; i++) {
-  console.log(arr[i]);
+let left = 0;
+let right = N - 1;
+let minSum = Infinity;
+let answer = [];
+
+while (left < right) {
+  let sum = arr[left] + arr[right];
+  if (Math.abs(sum) < Math.abs(minSum)) {
+    minSum = sum;
+    answer = [arr[left], arr[right]];
+  }
+
+  if (sum < 0) {
+    left++;
+  } else {
+    right--;
+  }
 }
+
+console.log(answer.join(" "));
