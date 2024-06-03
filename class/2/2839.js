@@ -47,3 +47,16 @@ console.log(-1);
 //   }
 // }
 // console.log(rest ? -1 : result);
+
+// while(true){
+//     if(input % 5 === 0){
+//         console.log(input / 5 + bags)
+//         break
+//     }else if(input < 0){
+//         console.log(-1)
+//         break
+//     }else{
+//         bags++
+//         input -= 3
+//     }
+// }
