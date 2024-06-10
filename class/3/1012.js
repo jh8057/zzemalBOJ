@@ -5,11 +5,10 @@ const inputs = require("fs")
   .split("\n");
 
 const N = +inputs.shift();
-
 let answer = [];
 
+// 케이스 갯수
 for (let i = 0; i < N; i++) {
-  console.log("-------");
   let cnt = 0;
   let [M, N, K] = inputs
     .shift()
@@ -19,6 +18,7 @@ for (let i = 0; i < N; i++) {
     Array.from({ length: M }, () => false)
   );
 
+  // 케이스별 배추 위치 , graph만들기
   for (let j = 0; j < K; j++) {
     let [x, y] = inputs
       .shift()
@@ -28,6 +28,7 @@ for (let i = 0; i < N; i++) {
     arr[y][x] = true;
   }
 
+  // 배추 뭉친 부분 검사
   for (let a = 0; a < N; a++) {
     for (let b = 0; b < M; b++) {
       if (arr[a][b]) {
@@ -56,7 +57,6 @@ for (let i = 0; i < N; i++) {
     }
   }
 
-  console.log("cont", cnt);
   answer.push(cnt);
 }
 
