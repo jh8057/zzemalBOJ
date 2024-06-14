@@ -12,15 +12,18 @@ const [M, N] = inputs
 let arr = inputs.map((el) => el.split(" ").map((el) => +el));
 let day = 0;
 
-let visited = [];
-
 while (true) {
-  console.log(arr);
   let isChange = false;
   let isDone = true;
+
+  let visited = Array.from({ length: N }, () =>
+    Array.from({ length: M }, () => false)
+  );
+
   for (let i = 0; i < N; i++) {
     for (let j = 0; j < M; j++) {
-      if (arr[i][j] > 0 && !visited.includes([i, j])) {
+      if (arr[i][j] > 0 && !visited[i][j]) {
+        visited[i][j] = true;
         for (let k = 0; k < 4; k++) {
           let dx = [0, 1, 0, -1];
           let dy = [1, 0, -1, 0];
@@ -30,7 +33,7 @@ while (true) {
           if (arr[ny]?.[nx] === 0) {
             arr[ny][nx] = 1;
             isChange = true;
-            visited.push([ny, nx]);
+            visited[ny][nx] = true;
           }
         }
       } else if (arr[i][j] === 0) {
@@ -40,14 +43,12 @@ while (true) {
   }
 
   if (isDone) {
-    console.log("isDone", day);
-    return day;
+    console.log(day);
+    return;
   }
   if (!isChange) {
-    console.log("impossible", -1);
-    return -1;
+    console.log(-1);
+    return;
   }
   day++;
-
-  console.log("day", day);
 }
