@@ -10,45 +10,55 @@ const [M, N] = inputs
   .map((el) => +el);
 
 let arr = inputs.map((el) => el.split(" ").map((el) => +el));
-let day = 0;
 
-while (true) {
-  let isChange = false;
-  let isDone = true;
+let startPoint = [];
+let endPoint = [];
 
-  let visited = Array.from({ length: N }, () =>
-    Array.from({ length: M }, () => false)
-  );
-
-  for (let i = 0; i < N; i++) {
-    for (let j = 0; j < M; j++) {
-      if (arr[i][j] > 0 && !visited[i][j]) {
-        visited[i][j] = true;
-        for (let k = 0; k < 4; k++) {
-          let dx = [0, 1, 0, -1];
-          let dy = [1, 0, -1, 0];
-
-          let ny = dy[k] + i;
-          let nx = dx[k] + j;
-          if (arr[ny]?.[nx] === 0) {
-            arr[ny][nx] = 1;
-            isChange = true;
-            visited[ny][nx] = true;
-          }
-        }
-      } else if (arr[i][j] === 0) {
-        isDone = false;
-      }
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (arr[i][j] > 0) {
+      endPoint.push([i, j]);
     }
   }
-
-  if (isDone) {
-    console.log(day);
-    return;
-  }
-  if (!isChange) {
-    console.log(-1);
-    return;
-  }
-  day++;
 }
+
+const growTomato = (i, j) => {
+  for (let k = 0; k < 4; k++) {
+    let dx = [0, 1, 0, -1];
+    let dy = [1, 0, -1, 0];
+
+    let ny = dy[k] + i;
+    let nx = dx[k] + j;
+    if (arr[ny]?.[nx] === 0) {
+      arr[ny][nx] = arr[i][j] + 1;
+      startPoint.push([ny, nx]);
+    }
+  }
+};
+
+//bfs
+let day = -1;
+while (startPoint.length || endPoint.length) {
+  if (!endPoint.length) {
+    endPoint = startPoint.reverse();
+    startPoint = [];
+  }
+
+  let [i, j] = endPoint.pop();
+  if (arr[i][j] > day) {
+    day = arr[i][j] - 1;
+  }
+
+  growTomato(i, j);
+}
+
+for (let i = 0; i < N; i++) {
+  for (let j = 0; j < M; j++) {
+    if (arr[i][j] === 0) {
+      console.log(-1);
+      return;
+    }
+  }
+}
+
+console.log(day);
