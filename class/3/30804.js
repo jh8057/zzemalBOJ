@@ -4,20 +4,32 @@ const inputs = require("fs")
   .trim()
   .split("\n");
 
-console.log(inputs);
-
 const N = +inputs.shift();
-const arr = inputs[0].split(" ").map((el) => +el);
+const S = inputs[0].split(" ").map((el) => +el);
 
-let dp = [];
-let obj = {};
+let fruitCount = Array(10).fill(0);
+let start = 0;
+let end = 0;
+let maxLen = 0;
+let typeCount = 0;
 
-for (let i = 0; i < N; i++) {
-  if (obj[arr[i]]) {
-    dp[i] = dp[i - 1];
-  } else {
-    if (i === 0) dp[0] = 1;
-    else dp[i] = dp[i - 1] + 1;
-    obj[arr[i]] = true;
+while (end < N) {
+  let endFruit = S[end];
+  if (fruitCount[endFruit] === 0) typeCount++;
+  fruitCount[endFruit]++;
+
+  while (typeCount > 2) {
+    // 2종류가 넘어가는 순간 왼쪽 포인터 움직여서 맞춰주기
+    let startFruit = S[start];
+    fruitCount[startFruit]--;
+    if (fruitCount[startFruit] === 0) typeCount--;
+    start++;
   }
+
+  maxLen = Math.max(maxLen, end - start + 1);
+  end++;
 }
+
+console.log(maxLen);
+
+// sliding window , two pointer
