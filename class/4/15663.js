@@ -1,3 +1,5 @@
+/** * */
+
 const inputs = require("fs")
   .readFileSync("../../input/15663.txt")
   .toString()
