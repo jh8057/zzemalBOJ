@@ -9,8 +9,6 @@ const [N, K] = inputs
   .split(" ")
   .map((el) => +el);
 
-console.log(N, K);
-
 let count = 0;
 let value = N;
 let left = 0;
@@ -18,15 +16,23 @@ while (true) {
   count++;
   value *= 2;
   let half = parseInt(value / 2);
-  console.log("a", Math.abs(K - value), half);
   if (Math.abs(K - value) < half) {
     left = Math.abs(K - value);
     break;
   }
 }
-console.log(count, left);
 
+let arr = [0];
 for (let i = count; i > 0; i--) {
   let num = Math.pow(2, i);
-  console.log(num);
+  let count = parseInt(left / num);
+  if (count > 0) {
+    left -= count * num;
+    arr.push(count);
+  } else {
+    arr.push(0);
+  }
 }
+
+let sum = arr.reduce((arr, pre) => arr + pre, 0);
+console.log(sum + left);
