@@ -9,30 +9,32 @@ const [N, K] = inputs
   .split(" ")
   .map((el) => +el);
 
-let count = 0;
-let value = N;
-let left = 0;
-while (true) {
-  count++;
-  value *= 2;
-  let half = parseInt(value / 2);
-  if (Math.abs(K - value) < half) {
-    left = Math.abs(K - value);
-    break;
+const maxPosition = 100000;
+const visited = new Array(maxPosition + 1).fill(-1);
+const queue = [];
+
+queue.push(N);
+visited[N] = 0;
+
+while (queue.length > 0) {
+  const cur = queue.shift();
+
+  if (cur === K) {
+    console.log(visited[cur]);
+    return;
+  }
+
+  const nextPositions = [cur * 2, cur + 1, cur - 1];
+
+  for (let next of nextPositions) {
+    if (next >= 0 && next <= maxPosition && visited[next] === -1) {
+      if (next === cur * 2) {
+        queue.unshift(next); // 순간이동은 우선적으로 탐색
+        visited[next] = visited[cur]; // 순간이동은 시간이 증가하지 않음
+      } else {
+        queue.push(next);
+        visited[next] = visited[cur] + 1; // 걷는 경우는 시간이 1 증가
+      }
+    }
   }
 }
-
-let arr = [0];
-for (let i = count; i > 0; i--) {
-  let num = Math.pow(2, i);
-  let count = parseInt(left / num);
-  if (count > 0) {
-    left -= count * num;
-    arr.push(count);
-  } else {
-    arr.push(0);
-  }
-}
-
-let sum = arr.reduce((arr, pre) => arr + pre, 0);
-console.log(sum + left);

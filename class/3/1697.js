@@ -1,38 +1,30 @@
-const inputs = require("fs")
-  .readFileSync("../../input/1697.txt")
-  .toString()
-  .trim()
-  .split("\n");
+const sol = (input) => {
+  const [N, K] = input.split(" ").map(Number);
+  const visit = Array.from({ length: 100100 }, () => 0);
 
-const [N, K] = inputs
-  .shift()
-  .split(" ")
-  .map((el) => +el);
-
-let count = 0;
-let value = N;
-let left = 0;
-while (true) {
-  count++;
-  value *= 2;
-  let half = parseInt(value / 2);
-  if (Math.abs(K - value) < half) {
-    left = Math.abs(K - value);
-    break;
+  function bfs(N) {
+    const queue = [];
+    queue.push([N, 0]);
+    visit[N] = 1;
+    while (queue.length) {
+      const [cur, time] = queue.shift();
+      if (cur === K) return time;
+      for (next of [cur - 1, cur + 1, cur * 2]) {
+        if (!visit[next] && next >= 0 && next <= 100000) {
+          visit[next] = 1;
+          queue.push([next, time + 1]);
+        }
+      }
+    }
   }
-}
+  return bfs(N);
+};
 
-let arr = [0];
-for (let i = count; i > 0; i--) {
-  let num = Math.pow(2, i);
-  let count = parseInt(left / num);
-  if (count > 0) {
-    left -= count * num;
-    arr.push(count);
-  } else {
-    arr.push(0);
-  }
-}
-
-let sum = arr.reduce((arr, pre) => arr + pre, 0);
-console.log(sum + left);
+require("readline")
+  .createInterface(process.stdin, process.stdout)
+  .on("line", (line) => {
+    console.log(sol(line));
+  })
+  .on("close", () => {
+    process.exit();
+  });
