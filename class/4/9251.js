@@ -8,43 +8,18 @@ const [arr1, arr2] = inputs;
 const L1 = arr1.length;
 const L2 = arr2.length;
 
-let maxLength = 0;
-
-const queue = [];
-
-const checkExist = (text, startIndex = 0) => {
-  for (let i = startIndex; i < L2; i++) {
-    if (text === arr2[i]) {
-      return String(i);
-    }
-  }
-  return false;
-};
-
+const dp = Array.from({ length: L1 }, () =>
+  Array.from({ length: L2 }, () => 0)
+);
 for (let i = 0; i < L1; i++) {
-  let target = arr1[i];
-  // check queue
-  for (let j = 0; j < queue.length; j++) {
-    const [text, index] = queue[j];
-    if (checkExist(target, index)) {
-      const lastIndex = Number(checkExist(target, index));
-      if (lastIndex === L2 - 1) {
-        maxLength = Math.max(maxLength, text.length + 1);
-      } else {
-        queue[j] = [text + target, lastIndex];
-      }
-    }
-  }
-
-  if (checkExist(target)) {
-    const lastIndex = Number(checkExist(target));
-    if (lastIndex === L2 - 1) {
-      maxLength = Math.max(maxLength, 1);
+  for (let j = 0; j < L2; j++) {
+    if (arr1[i] === arr2[j]) {
+      // same character
+      dp[i][j] = (dp[i - 1]?.[j - 1] || 0) + 1;
     } else {
-      queue.push([target, lastIndex]);
+      dp[i][j] = Math.max(dp[i]?.[j - 1] || 0, dp[i - 1]?.[j] || 0);
     }
   }
 }
 
-const max = Math.max(...queue.map((el) => el[0].length), maxLength);
-console.log(max);
+console.log(dp[L1 - 1][L2 - 1]);
