@@ -1,7 +1,7 @@
-function solutionA(str) {
+function solution(str) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(str.length);
-    }, 2000);
+    }, 5000);
   });
 }
